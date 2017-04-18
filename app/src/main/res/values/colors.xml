@@ -1,0 +1,6 @@
+<resources>
+    <color name="shopAccent">#84ceca</color>
+    <color name="shopSecondary">#727272</color>
+    <color name="shopRatedStar">#ffeb5a</color>
+    <color name="shopFabRipple">#51b2ac</color>
+</resources>
