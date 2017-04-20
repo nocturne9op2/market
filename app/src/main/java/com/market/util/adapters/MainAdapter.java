@@ -13,18 +13,34 @@ import com.market.util.entities.Item;
 import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+    private ItemClickListener callback;
     private List<Item> data;
 
-    public MainAdapter(List<Item> data) {
+    public MainAdapter(ItemClickListener callback, List<Item> data) {
+        this.callback = callback;
         this.data = data;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView image;
+    public interface ItemClickListener {
+        void onItemClick(int i);
+    }
 
-        public ViewHolder(View itemView) {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private ItemClickListener callback;
+        private ImageView imageView;
+
+        public ViewHolder(View itemView, ItemClickListener callback) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image);
+            this.callback = callback;
+            imageView = (ImageView) itemView.findViewById(R.id.image);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (callback != null) {
+                callback.onItemClick(getAdapterPosition());
+            }
         }
     }
 
@@ -32,14 +48,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.item_shop_card, parent, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, callback);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Glide.with(holder.itemView.getContext())
                 .load(data.get(position).getImage())
-                .into(holder.image);
+                .into(holder.imageView);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.market.util.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -21,15 +22,14 @@ import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DiscreteScrollView.OnItemChangedListener,
-        View.OnClickListener {
-
-    private List<Item> data;
-    private Shop shop;
-
+public class MainActivity extends AppCompatActivity implements DiscreteScrollView.OnItemChangedListener, MainAdapter.ItemClickListener, View.OnClickListener {
     private TextView currentItemName;
     private TextView currentItemPrice;
     private ImageView rateItemButton;
+
+    private Shop shop;
+    private List<Item> data;
+
     private DiscreteScrollView itemPicker;
 
     @Override
@@ -43,10 +43,11 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
 
         shop = Shop.get();
         data = shop.getData();
+
         itemPicker = (DiscreteScrollView) findViewById(R.id.item_picker);
         itemPicker.setOrientation(Orientation.HORIZONTAL);
         itemPicker.setOnItemChangedListener(this);
-        itemPicker.setAdapter(new MainAdapter(data));
+        itemPicker.setAdapter(new MainAdapter(this, data));
         itemPicker.setItemTransitionTimeMillis(DiscreteScrollViewUtils.getTransitionTime());
         itemPicker.setItemTransformer(new ScaleTransformer.Builder()
                 .setMinScale(0.8f)
@@ -59,6 +60,13 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         findViewById(R.id.item_btn_comment).setOnClickListener(this);
 
         findViewById(R.id.btn_smooth_scroll).setOnClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(int i) {
+        Intent intent = new Intent(getBaseContext(), DetailActivity.class);
+        intent.putExtra(DetailActivity.EXTRA_NAME, data.get(i));
+        startActivity(intent);
     }
 
     @Override
@@ -78,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         }
     }
 
+    @Override
+    public void onCurrentItemChanged(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        onItemChanged(data.get(position));
+    }
+
     private void onItemChanged(Item item) {
         currentItemName.setText(item.getName());
         currentItemPrice.setText(item.getPrice());
@@ -92,11 +105,6 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
             rateItemButton.setImageResource(R.drawable.ic_star_border_black_24dp);
             rateItemButton.setColorFilter(ContextCompat.getColor(this, R.color.shopSecondary));
         }
-    }
-
-    @Override
-    public void onCurrentItemChanged(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        onItemChanged(data.get(position));
     }
 
     private void showUnsupportedSnackBar() {

@@ -1,4 +1,8 @@
 <resources>
+    <color name="colorPrimary">#313638</color>
+    <color name="colorPrimaryDark">#1B1E1F</color>
+    <color name="colorAccent">#84ceca</color>
+
     <color name="shopAccent">#84ceca</color>
     <color name="shopSecondary">#727272</color>
     <color name="shopRatedStar">#ffeb5a</color>
