@@ -29,7 +29,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         private ItemClickListener callback;
         private ImageView imageView;
 
-        public ViewHolder(View itemView, ItemClickListener callback) {
+        public ViewHolder(ItemClickListener callback, View itemView) {
             super(itemView);
             this.callback = callback;
             imageView = (ImageView) itemView.findViewById(R.id.image);
@@ -48,7 +48,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.item_shop_card, parent, false);
-        return new ViewHolder(v, callback);
+        return new ViewHolder(callback, v);
     }
 
     @Override

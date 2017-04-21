@@ -20,8 +20,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Bundle arguments = getIntent().getExtras();
-        item = arguments.getParcelable(EXTRA_NAME);
+        item = getIntent().getParcelableExtra(EXTRA_NAME);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

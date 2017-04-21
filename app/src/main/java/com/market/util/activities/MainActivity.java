@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
 
     @Override
     public void onItemClick(int i) {
-        Intent intent = new Intent(getBaseContext(), DetailActivity.class);
+        Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.EXTRA_NAME, data.get(i));
         startActivity(intent);
     }
