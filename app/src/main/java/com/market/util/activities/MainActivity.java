@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DiscreteScrollView.OnItemChangedListener, MainAdapter.ItemClickListener, View.OnClickListener {
     private TextView currentItemName;
-    private TextView currentItemPrice;
+    private TextView currentItemSize;
     private ImageView rateItemButton;
 
     private Shop shop;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
         setContentView(R.layout.activity_main);
 
         currentItemName = (TextView) findViewById(R.id.item_name);
-        currentItemPrice = (TextView) findViewById(R.id.item_price);
+        currentItemSize = (TextView) findViewById(R.id.item_size);
         rateItemButton = (ImageView) findViewById(R.id.item_btn_rate);
 
         shop = Shop.get();
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements DiscreteScrollVie
 
     private void onItemChanged(Item item) {
         currentItemName.setText(item.getName());
-        currentItemPrice.setText(item.getPrice());
+        currentItemSize.setText(item.getSize());
         changeRateButtonState(item);
     }
 

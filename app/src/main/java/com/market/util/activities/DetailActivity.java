@@ -5,6 +5,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.market.util.R;
@@ -29,11 +30,18 @@ public class DetailActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(item.getName());
 
-        loadBackdrop();
+        loadInfo();
     }
 
-    private void loadBackdrop() {
-        ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(item.getImage()).centerCrop().into(imageView);
+    private void loadInfo() {
+        ImageView backdrop = (ImageView) findViewById(R.id.imageViewBackdrop);
+        TextView ingredients = (TextView) findViewById(R.id.textViewIngredients);
+        TextView instructions = (TextView) findViewById(R.id.textViewInstructions);
+
+        Glide.with(this)
+                .load(item.getImage())
+                .into(backdrop);
+        ingredients.setText(item.getIngredients());
+        instructions.setText(item.getInstructions());
     }
 }

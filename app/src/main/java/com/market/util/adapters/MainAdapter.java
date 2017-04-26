@@ -27,12 +27,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemClickListener callback;
-        private ImageView imageView;
+        private ImageView image;
 
         public ViewHolder(ItemClickListener callback, View itemView) {
             super(itemView);
             this.callback = callback;
-            imageView = (ImageView) itemView.findViewById(R.id.image);
+            image = (ImageView) itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(this);
         }
 
@@ -55,7 +55,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Glide.with(holder.itemView.getContext())
                 .load(data.get(position).getImage())
-                .into(holder.imageView);
+                .into(holder.image);
     }
 
     @Override
